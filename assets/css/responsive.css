@@ -16,7 +16,7 @@
   .hero__inner { grid-template-columns: 1fr; gap: 0; }
   .hero__text { display: contents; }
   .hero__meta { order: 1; justify-self: start; margin-bottom: 22px; }
-  .hero__title { order: 2; font-size: clamp(58px, 17.5vw, 140px); }
+  .hero__title { order: 2; font-size: clamp(40px, 12.6vw, 96px); }
   .hero__stage { order: 3; max-width: 440px; width: 82%; justify-self: center; margin: 36px 0 8px; }
   .hero__lead { order: 4; font-size: 16px; }
   .hero__cta { order: 5; width: 100%; }
@@ -58,7 +58,10 @@
   .prices__visual { position: relative; top: 0; width: 78%; max-width: 380px; justify-self: center; order: 2; }
   .price-row { grid-template-columns: minmax(0, 1fr) auto; padding: 24px 16px; margin: 0 -16px; gap: 12px; }
   .price-row__dots { display: none; }
-  .price-row__price { font-size: 34px; }
+  .price-row__price { font-size: 26px; }
+  .price-tabs { flex-wrap: nowrap; overflow-x: auto; margin-inline: calc(var(--gutter) * -1); padding: 0 var(--gutter) 6px; scrollbar-width: none; scroll-snap-type: x proximity; }
+  .price-tabs::-webkit-scrollbar { display: none; }
+  .price-tab { flex: none; scroll-snap-align: start; }
   .prices__more { padding: 22px; }
   .prices__more .btn { width: 100%; }
   .prices__more .btn span { white-space: normal; }
@@ -101,7 +104,7 @@
   .contacts__grid { grid-template-columns: 1fr; }
   .contacts__list div { grid-template-columns: 1fr; gap: 2px; }
 
-  .footer__big { font-size: 11.2vw; padding: 0 12px; }
+  .footer__big { font-size: 8.4vw; padding: 0 12px; }
   .footer__row { flex-direction: column; align-items: flex-start; padding-bottom: 110px; }
   .mobile-cta { display: flex; }
   .header__actions .btn--sm { display: none; }
@@ -122,6 +125,6 @@
   .hero__stage { width: 88%; }
   .btn--lg { height: 58px; padding: 0 26px; font-size: 15px; }
   .btn--xl { height: 64px; padding: 0 30px; font-size: 16px; }
-  .finale__title { font-size: 16vw; }
-  .stat__num { font-size: 52px; }
+  .finale__title { font-size: 11vw; }
+  .stat__num { font-size: 44px; }
 }

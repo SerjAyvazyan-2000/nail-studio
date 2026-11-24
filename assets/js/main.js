@@ -360,29 +360,6 @@
   }, { threshold: 0.6 });
   $$('[data-bar]').forEach(el => barIO.observe(el));
 
-  /* ---------- Курсор ---------- */
-  if (finePointer && !reduce) {
-    const cursor = $('.cursor');
-    const label = $('.cursor__label', cursor);
-    let cx = -100, cy = -100, tx = -100, ty = -100;
-    window.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
-    const cLoop = () => {
-      cx = lerp(cx, tx, 0.2); cy = lerp(cy, ty, 0.2);
-      cursor.style.transform = `translate3d(${cx.toFixed(1)}px, ${cy.toFixed(1)}px, 0)`;
-      requestAnimationFrame(cLoop);
-    };
-    cLoop();
-    document.addEventListener('mouseover', e => {
-      const lab = e.target.closest('[data-cursor]');
-      const link = e.target.closest('a, button');
-      cursor.classList.toggle('is-label', !!lab);
-      cursor.classList.toggle('is-link', !lab && !!link);
-      if (lab) label.textContent = lab.dataset.cursor;
-    });
-    $('[data-lightbox]').addEventListener('mouseenter', () => cursor.classList.remove('is-label', 'is-link'));
-
-  }
-
   /* ---------- Лайтбокс галереи ---------- */
   const lb = $('[data-lightbox]');
   const lbImg = $('[data-lb-img]');

@@ -108,39 +108,11 @@
 }
 .preloader__count {
   font-family: var(--font-display);
-  font-style: italic;
+  font-family: var(--font-script); font-style: normal;
   font-size: 40px;
   color: var(--pink-soft);
   font-variant-numeric: tabular-nums;
 }
-
-/* ---------- Курсор ---------- */
-.cursor {
-  position: fixed;
-  top: 0; left: 0;
-  width: 14px; height: 14px;
-  border-radius: 50%;
-  background: var(--pink);
-  pointer-events: none;
-  z-index: 250;
-  transform: translate3d(-100px, -100px, 0);
-  translate: -50% -50%;
-  mix-blend-mode: difference;
-  display: grid; place-items: center;
-  transition: width .45s var(--ease-out), height .45s var(--ease-out), background .3s;
-}
-.cursor__label {
-  font-size: 12px; font-weight: 500;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  color: var(--ink);
-  opacity: 0;
-  transition: opacity .3s;
-}
-.cursor.is-link { width: 54px; height: 54px; }
-.cursor.is-label { width: 104px; height: 104px; mix-blend-mode: normal; }
-.cursor.is-label .cursor__label { opacity: 1; }
-@media (hover: none), (pointer: coarse) { .cursor { display: none; } }
 
 /* ---------- Мобильная кнопка ---------- */
 .mobile-cta {
