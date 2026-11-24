@@ -86,12 +86,13 @@
   z-index: 95;
   visibility: hidden;
   pointer-events: none;
+  transition: visibility 0s linear 1.15s; /* прячем только после анимации закрытия */
 }
 .menu__bg {
   position: absolute; inset: 0;
   background: var(--pink);
   clip-path: circle(0% at calc(100% - 46px) 42px);
-  transition: clip-path .9s var(--ease-in-out);
+  transition: clip-path .8s var(--ease-in-out) .35s; /* закрытие: круг сворачивается после пунктов */
 }
 .menu__dancer {
   position: absolute;
@@ -103,7 +104,7 @@
   filter: brightness(0) invert(1);
   mix-blend-mode: soft-light;
   transform: translateY(60px) rotate(8deg);
-  transition: opacity 1s var(--ease-out) .25s, transform 1.4s var(--ease-out) .25s;
+  transition: opacity .45s var(--ease-out), transform .6s var(--ease-in-out);
 }
 .menu__inner {
   position: relative;
@@ -119,7 +120,7 @@
   letter-spacing: .18em;
   text-transform: uppercase;
   opacity: 0;
-  transition: opacity .5s .3s;
+  transition: opacity .3s;
 }
 .menu__nav { display: flex; flex-direction: column; margin: auto 0; padding: 32px 0; }
 .menu__link {
@@ -145,7 +146,7 @@
   font-weight: 500;
   letter-spacing: -.02em;
   transform: translateY(110%);
-  transition: transform .9s var(--ease-out), font-style .2s;
+  transition: transform .5s var(--ease-in-out), font-style .2s;
 }
 .menu__link:hover span, .menu__link:active span { font-style: italic; }
 .menu__foot {
@@ -153,7 +154,7 @@
   gap: 18px;
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity .6s .6s, transform .8s var(--ease-out) .6s;
+  transition: opacity .3s, transform .4s var(--ease-in-out);
 }
 .menu__foot .btn--pink { background: var(--ink); color: var(--pink); }
 .menu__foot .btn--pink::before { background: var(--ink-3); }
@@ -167,8 +168,12 @@
   font-weight: 500;
 }
 
-.menu-open .menu { visibility: visible; pointer-events: auto; }
-.menu-open .menu__bg { clip-path: circle(150% at calc(100% - 46px) 42px); }
+.menu-open .menu { visibility: visible; pointer-events: auto; transition: visibility 0s; }
+.menu-open .menu__dancer { transition: opacity 1s var(--ease-out) .25s, transform 1.4s var(--ease-out) .25s; }
+.menu-open .menu__kicker { transition: opacity .5s .3s; }
+.menu-open .menu__link span { transition: transform .9s var(--ease-out), font-style .2s; }
+.menu-open .menu__foot { transition: opacity .6s .6s, transform .8s var(--ease-out) .6s; }
+.menu-open .menu__bg { clip-path: circle(150% at calc(100% - 46px) 42px); transition: clip-path .9s var(--ease-in-out); }
 .menu-open .menu__dancer { opacity: .9; transform: translateY(0) rotate(0); }
 .menu-open .menu__kicker { opacity: .7; }
 .menu-open .menu__link span { transform: translateY(0); }
@@ -178,8 +183,18 @@
 .menu-open .menu__link:nth-child(4) span { transition-delay: .4s; }
 .menu-open .menu__link:nth-child(5) span { transition-delay: .45s; }
 .menu-open .menu__link:nth-child(6) span { transition-delay: .5s; }
+.menu-open .menu__link:nth-child(7) span { transition-delay: .55s; }
 .menu-open .menu__foot { opacity: 1; transform: none; }
 .menu-open .header { background: transparent; backdrop-filter: none; border-color: transparent; transform: none; }
 .menu-open .brand__text, .menu-open .header__phone { color: var(--ink); }
 .menu-open .brand__text em { color: var(--ink); }
 .menu-open .header__actions .btn { opacity: 0; pointer-events: none; }
+
+/* Закрытие: пункты уходят вниз по очереди (снизу вверх) */
+.menu__link:nth-child(7) span { transition-delay: 0s; }
+.menu__link:nth-child(6) span { transition-delay: .03s; }
+.menu__link:nth-child(5) span { transition-delay: .06s; }
+.menu__link:nth-child(4) span { transition-delay: .09s; }
+.menu__link:nth-child(3) span { transition-delay: .12s; }
+.menu__link:nth-child(2) span { transition-delay: .15s; }
+.menu__link:nth-child(1) span { transition-delay: .18s; }
