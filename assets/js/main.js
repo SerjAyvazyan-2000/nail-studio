@@ -99,6 +99,25 @@
   }, { threshold: 0.6 });
   $$('[data-counter]').forEach(el => countIO.observe(el));
 
+  /* ---------- Цены «набегают» при появлении ---------- */
+  const fmt = n => Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0');
+  const priceIO = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      const el = en.target;
+      const to = parseFloat(el.dataset.price);
+      const start = performance.now();
+      const step = (t) => {
+        const p = clamp((t - start) / 1400, 0, 1);
+        el.textContent = fmt(to * (1 - Math.pow(1 - p, 4)));
+        if (p < 1) requestAnimationFrame(step);
+      };
+      if (!reduce) requestAnimationFrame(step);
+      priceIO.unobserve(el);
+    });
+  }, { threshold: 0.8 });
+  $$('[data-price]').forEach(el => priceIO.observe(el));
+
   /* ---------- Манифест: слова подсвечиваются по скроллу ---------- */
   const manifest = $('[data-split]');
   let words = [];
@@ -131,6 +150,7 @@
   const finaleCircle = $('[data-finale-circle]');
   const parallaxImgs = $$('[data-parallax-img]');
   const floats = $$('[data-float]');
+  const bgWord = $('[data-bgword]');
 
   /* Горизонтальный скролл услуг */
   const hSection = $('[data-hscroll]');
@@ -235,6 +255,12 @@
         const p = (r.top + r.height / 2 - vh / 2) / vh;
         img.style.translate = `0 ${(-8 + p * -10).toFixed(2)}%`;
       });
+
+      // большое слово «прайс» едет по горизонтали
+      if (bgWord) {
+        const r = bgWord.parentElement.getBoundingClientRect();
+        if (r.top < vh && r.bottom > 0) bgWord.style.transform = `translate3d(${(r.top - vh / 2) * 0.35}px,0,0)`;
+      }
 
       // фото в финале
       if (finale) {

@@ -54,6 +54,15 @@
   .svc, .svc--feature { width: 78vw; max-width: 360px; height: 500px; scroll-snap-align: start; }
   .svc:hover { transform: none; }
 
+  .prices__grid { grid-template-columns: 1fr; }
+  .prices__visual { position: relative; top: 0; width: 78%; max-width: 380px; justify-self: center; order: 2; }
+  .price-row { grid-template-columns: minmax(0, 1fr) auto; padding: 24px 16px; margin: 0 -16px; gap: 12px; }
+  .price-row__dots { display: none; }
+  .price-row__price { font-size: 34px; }
+  .prices__more { padding: 22px; }
+  .prices__more .btn { width: 100%; }
+  .prices__more .btn span { white-space: normal; }
+
   .works__head { grid-template-columns: 1fr; }
   .works__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .works__col:nth-child(3) { grid-column: 1 / -1; grid-template-columns: repeat(3, minmax(0, 1fr)); }

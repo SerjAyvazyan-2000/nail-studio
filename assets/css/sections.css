@@ -688,3 +688,146 @@
 .footer__row a { transition: color .3s; }
 .footer__row a:hover { color: var(--pink); }
 .footer__credit b { color: var(--text); font-weight: 500; }
+
+/* =========================================================
+   ЦЕНЫ
+   ========================================================= */
+.prices { position: relative; overflow: hidden; }
+.prices__bgword {
+  position: absolute;
+  top: clamp(40px, 6vw, 90px);
+  left: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(140px, 26vw, 420px);
+  line-height: .8;
+  letter-spacing: -.05em;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(243, 111, 196, .14);
+  pointer-events: none;
+  will-change: transform;
+}
+.prices__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+  gap: clamp(40px, 7vw, 120px);
+  align-items: start;
+}
+.prices__visual { position: sticky; top: 120px; }
+.frame--price { aspect-ratio: 4 / 5; border-radius: 999px 999px var(--radius) var(--radius); }
+.frame--price::before, .frame--price::after { border-radius: inherit; }
+.prices__sticker {
+  position: absolute;
+  right: -6%;
+  bottom: 8%;
+  z-index: 3;
+  width: clamp(120px, 11vw, 168px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--pink);
+  color: var(--ink);
+  display: grid;
+  place-content: center;
+  text-align: center;
+  line-height: 1.1;
+  rotate: -12deg;
+  box-shadow: 0 20px 50px -16px rgba(243, 111, 196, .7);
+  animation: stickerFloat 5s var(--ease-in-out) infinite;
+}
+.prices__sticker span { font-size: 13px; font-weight: 500; }
+.prices__sticker b { font-family: var(--font-display); font-size: clamp(32px, 3vw, 44px); font-weight: 700; letter-spacing: -.02em; }
+@keyframes stickerFloat { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
+
+.price-tabs { display: flex; gap: 8px; margin: 36px 0 12px; flex-wrap: wrap; }
+.price-tab {
+  padding: 10px 22px;
+  border-radius: 100px;
+  border: 1px solid var(--line);
+  font-size: 14px;
+  color: var(--muted);
+}
+.price-tab.is-active { background: var(--text); color: var(--ink); border-color: var(--text); }
+
+.price-list { border-top: 1px solid var(--line); }
+.price-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(40px, 1fr) auto;
+  align-items: end;
+  gap: 18px;
+  padding: 30px 20px;
+  margin: 0 -20px;
+  border-bottom: 1px solid var(--line);
+  border-radius: 18px;
+  isolation: isolate;
+  transition: color .4s var(--ease-out);
+}
+.price-row::before {
+  content: "";
+  position: absolute; inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(100deg, rgba(243, 111, 196, .16), rgba(243, 111, 196, .02));
+  opacity: 0;
+  transition: opacity .5s var(--ease-out);
+}
+.price-row:hover::before { opacity: 1; }
+.price-row__name h3 {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.2vw, 32px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -.015em;
+}
+.price-row__name p { margin-top: 6px; color: var(--muted); font-size: 14.5px; }
+.price-row__dots {
+  height: 1px;
+  margin-bottom: 14px;
+  background-image: radial-gradient(circle, rgba(243, 111, 196, .6) 1px, transparent 1.5px);
+  background-size: 8px 2px;
+  background-repeat: repeat-x;
+}
+.price-row__price {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 3.8vw, 58px);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--pink);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums lining-nums;
+  transition: color .4s;
+}
+.price-row:hover .price-row__price { color: var(--pink-soft); }
+.price-row__badge {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 8px;
+  padding: 4px 12px;
+  border-radius: 100px;
+  background: var(--pink);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.price-row--hit { background: rgba(243, 111, 196, .07); border-color: rgba(243, 111, 196, .3); }
+
+.prices__more {
+  margin-top: 40px;
+  padding: 28px 30px;
+  border-radius: var(--radius);
+  border: 1px dashed rgba(243, 111, 196, .45);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px 32px;
+  flex-wrap: wrap;
+}
+.prices__more b { font-family: var(--font-display); font-size: 22px; font-weight: 600; }
+.prices__more p { color: var(--muted); font-size: 15px; margin-top: 4px; }
