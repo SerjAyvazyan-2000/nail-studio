@@ -64,7 +64,8 @@ body.cookie-open .mobile-cta { transform: translateY(160%) !important; }
 .legal-header { border-bottom: 1px solid var(--line); }
 .legal-header__inner { height: 84px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .legal { max-width: 860px; padding-top: clamp(48px, 7vw, 96px); padding-bottom: 96px; }
-.legal__title { font-family: var(--font-display); font-weight: 700; font-size: clamp(40px, 6vw, 72px); line-height: 1; letter-spacing: -.03em; text-wrap: balance; }
+.legal__title { font-family: var(--font-display); font-weight: 600; font-size: clamp(28px, 6vw, 60px); line-height: 1.1; letter-spacing: -.03em; text-wrap: balance; overflow-wrap: break-word; hyphens: auto; }
+.legal__title em { display: inline-block; max-width: 100%; }
 .legal__date { margin-top: 16px; color: var(--muted); font-size: 14px; }
 .legal__toc { margin: 40px 0 16px; display: flex; flex-wrap: wrap; gap: 8px; }
 .legal__toc a { padding: 8px 14px; border-radius: 100px; border: 1px solid var(--line); font-size: 13.5px; color: var(--muted); transition: border-color .3s, color .3s; }
