@@ -434,10 +434,8 @@
   };
   if (cookieBox) {
     const c = getConsent();
-    if (c === 'all') loadMap();
-    else if (!c) setTimeout(showCookie, reduce ? 0 : 2200);
+    if (!c) setTimeout(showCookie, reduce ? 0 : 2200);
     $('[data-cookie-accept]').addEventListener('click', () => { setConsent('all'); loadMap(); hideCookie(); });
-    $('[data-cookie-decline]').addEventListener('click', () => { setConsent('necessary'); hideCookie(); });
     const st = $('[data-cookie-settings]');
     if (st) st.addEventListener('click', showCookie);
   }
