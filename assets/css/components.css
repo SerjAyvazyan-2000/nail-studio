@@ -14,21 +14,41 @@
   white-space: nowrap;
   overflow: hidden;
   isolation: isolate;
-  transition: color .5s var(--ease-out), border-color .5s var(--ease-out), transform .5s var(--ease-out);
+  transition: color .5s var(--ease-out), border-color .5s var(--ease-out), box-shadow .5s var(--ease-out);
 }
-.btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.6; transition: transform .5s var(--ease-out); }
-.btn:hover svg { transform: translateX(4px); }
+.btn > * { position: relative; z-index: 1; }
+.btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.6; }
+
+/* Ховер без движения кнопки: заливка расходится от центра + блик проходит по кнопке */
 .btn::before {
   content: "";
   position: absolute; inset: 0;
-  z-index: -1;
+  z-index: 0;
   border-radius: inherit;
-  transform: translateY(101%);
-  transition: transform .6s var(--ease-out);
+  clip-path: circle(0% at 50% 50%);
+  transition: clip-path .7s var(--ease-out);
 }
-.btn:hover::before { transform: translateY(0); }
+.btn:hover::before, .btn:focus-visible::before { clip-path: circle(75% at 50% 50%); }
+.btn::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  left: -60%;
+  width: 40%;
+  z-index: 1;
+  background: linear-gradient(105deg, transparent, rgba(255, 255, 255, .55), transparent);
+  transform: skewX(-20deg);
+  opacity: 0;
+  pointer-events: none;
+}
+.btn:hover::after { animation: btnShine .9s var(--ease-out); }
+@keyframes btnShine {
+  0% { left: -60%; opacity: 1; }
+  100% { left: 130%; opacity: 1; }
+}
 
 .btn--pink { background: var(--pink); color: var(--ink); }
+.btn--pink:hover { box-shadow: 0 0 0 4px rgba(243, 111, 196, .25), 0 12px 32px -10px rgba(243, 111, 196, .7); }
 .btn--pink::before { background: var(--blush); }
 
 .btn--ghost { border: 1px solid var(--line); color: var(--text); }
@@ -37,6 +57,7 @@
 
 .btn--dark { background: var(--ink); color: var(--text); }
 .btn--dark::before { background: var(--ink-3); }
+.btn--dark:hover { box-shadow: 0 0 0 4px rgba(18, 12, 16, .18); }
 
 .btn--sm { height: 44px; padding: 0 22px; font-size: 14px; }
 .btn--lg { height: 64px; padding: 0 36px; font-size: 16px; }

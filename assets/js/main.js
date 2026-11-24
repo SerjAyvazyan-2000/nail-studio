@@ -164,9 +164,6 @@
 
     // шапка
     header.classList.toggle('is-scrolled', sy > 40);
-    if (!body.classList.contains('menu-open')) {
-      header.classList.toggle('is-hidden', sy > lastY && sy > 500);
-    }
     lastY = sy;
 
     // мобильная кнопка: после героя и не над финалом
@@ -329,16 +326,6 @@
     slider.addEventListener('mouseenter', () => { cursor.classList.add('is-label'); label.textContent = 'Тянуть'; });
     slider.addEventListener('mouseleave', () => cursor.classList.remove('is-label'));
 
-    /* Магнитные кнопки */
-    $$('[data-magnetic]').forEach(btn => {
-      btn.addEventListener('mousemove', e => {
-        const r = btn.getBoundingClientRect();
-        const x = e.clientX - r.left - r.width / 2;
-        const y = e.clientY - r.top - r.height / 2;
-        btn.style.transform = `translate(${x * 0.25}px, ${y * 0.35}px)`;
-      });
-      btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
-    });
   }
 
   /* ---------- Лайтбокс галереи ---------- */
