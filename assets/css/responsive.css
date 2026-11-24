@@ -134,6 +134,7 @@
 }
 
 @media (max-width: 480px) {
+  .svc__title { font-size: 20px; }
   .rsum { padding: 22px; }
   .rsum__score b { font-size: 56px; }
   .rsum__stars { font-size: 18px; }
