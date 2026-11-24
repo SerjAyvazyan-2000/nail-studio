@@ -931,3 +931,25 @@
 }
 .prices__more b { font-family: var(--font-display); font-size: 22px; font-weight: 600; }
 .prices__more p { color: var(--muted); font-size: 15px; margin-top: 4px; }
+
+/* Цена на карточке услуги */
+.svc__price {
+  margin-top: auto;
+  align-self: flex-start;
+  padding: 7px 14px;
+  border-radius: 100px;
+  background: rgba(243, 111, 196, .14);
+  color: var(--pink-soft);
+  font-size: 14px;
+  font-weight: 600;
+}
+.svc--feature .svc__price { background: var(--ink); color: var(--pink); }
+
+/* Вкладки прайса */
+.price-tab { transition: background .35s var(--ease-out), color .35s, border-color .35s; }
+.price-tab:hover:not(.is-active) { border-color: var(--pink); color: var(--text); }
+.price-list.is-active { animation: panelIn .6s var(--ease-out); }
+@keyframes panelIn { from { opacity: 0; translate: 0 14px; } to { opacity: 1; translate: 0 0; } }
+.price-row__price small { font-family: var(--font-body); font-size: 14px; font-weight: 500; color: var(--muted); margin-right: 4px; vertical-align: middle; }
+[data-price-img] { transition: opacity .45s var(--ease-out), transform 1.8s var(--ease-out); }
+[data-price-img].is-swapping { opacity: 0; }

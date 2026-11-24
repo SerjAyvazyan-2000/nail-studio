@@ -103,11 +103,14 @@
   const fmt = n => Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0');
   const priceEls = $$('[data-price]');
   // фиксируем ширину по итоговому числу, чтобы цифры не прыгали
+  const hiddenPanels = $$('[data-panel][hidden]');
+  hiddenPanels.forEach(p => { p.hidden = false; });
   priceEls.forEach(el => {
     el.textContent = fmt(parseFloat(el.dataset.price));
-    el.style.minWidth = `${el.getBoundingClientRect().width}px`;
+    el.style.minWidth = `${Math.ceil(el.getBoundingClientRect().width)}px`;
     if (!reduce) el.textContent = '0';
   });
+  hiddenPanels.forEach(p => { p.hidden = true; });
   const runPrice = (el, delay) => {
     const to = parseFloat(el.dataset.price);
     const dur = 1300;
@@ -121,16 +124,44 @@
     };
     requestAnimationFrame(step);
   };
+  const animatePanel = (panel) => {
+    if (reduce || !panel) return;
+    $$('.price-row', panel).forEach((row, i) => {
+      row.classList.remove('is-counted');
+      const el = $('[data-price]', row);
+      if (el) { el.textContent = '0'; runPrice(el, 120 + i * 120); }
+    });
+  };
+  let pricesSeen = false;
   const priceIO = new IntersectionObserver((entries) => {
     entries.forEach(en => {
       if (!en.isIntersecting) return;
       priceIO.unobserve(en.target);
-      const rows = $$('.price-row', en.target);
-      rows.forEach((row, i) => { const el = $('[data-price]', row); if (el && !reduce) runPrice(el, 250 + i * 180); });
+      pricesSeen = true;
+      animatePanel($('.price-list.is-active'));
     });
   }, { threshold: 0.25 });
-  const priceList = $('.price-list');
-  if (priceList) priceIO.observe(priceList);
+  const pricePanels = $('.price-panels');
+  if (pricePanels) priceIO.observe(pricePanels);
+
+  /* Вкладки прайса */
+  const priceImg = $('[data-price-img]');
+  $$('[data-tab]').forEach(tab => tab.addEventListener('click', () => {
+    if (tab.classList.contains('is-active')) return;
+    $$('[data-tab]').forEach(t => { const on = t === tab; t.classList.toggle('is-active', on); t.setAttribute('aria-selected', String(on)); });
+    $$('[data-panel]').forEach(p => {
+      const on = p.dataset.panel === tab.dataset.tab;
+      p.classList.toggle('is-active', on);
+      p.hidden = !on;
+      if (on && pricesSeen) animatePanel(p);
+    });
+    if (priceImg && tab.dataset.img) {
+      priceImg.classList.add('is-swapping');
+      const pre = new Image();
+      pre.onload = () => { priceImg.src = tab.dataset.img; priceImg.alt = tab.dataset.alt || ''; requestAnimationFrame(() => priceImg.classList.remove('is-swapping')); };
+      pre.src = tab.dataset.img;
+    }
+  }));
 
   /* ---------- Манифест: слова подсвечиваются по скроллу ---------- */
   const manifest = $('[data-split]');
