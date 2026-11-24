@@ -516,8 +516,18 @@
   filter: drop-shadow(0 20px 40px rgba(0, 0, 0, .7));
   will-change: transform;
 }
-.why__item { padding: 26px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 56px 1fr; gap: 8px 20px; }
-.why__item span { font-family: var(--font-display); font-family: var(--font-script); font-style: normal; font-size: 24px; color: var(--pink); grid-row: span 2; line-height: 1.2; }
+.why__item { padding: 26px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 38px minmax(0, 1fr); gap: 6px 20px; }
+.why__check {
+  grid-row: span 2;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: var(--pink);
+  display: grid;
+  place-items: center;
+  margin-top: 2px;
+  box-shadow: 0 8px 20px -8px rgba(243, 111, 196, .8);
+}
+.why__check svg { width: 20px; height: 20px; fill: none; stroke: var(--ink); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
 .why__item h3 { font-family: var(--font-display); font-weight: 500; font-size: clamp(19px, 1.7vw, 26px); line-height: 1.25; letter-spacing: -.01em; }
 .why__item p { color: var(--muted); max-width: 44ch; }
 
@@ -991,3 +1001,8 @@
 .ptable__time { color: var(--muted); white-space: nowrap; width: 1%; font-size: 14.5px; }
 .ptable__price { white-space: nowrap; width: 1%; font-family: var(--font-display); font-weight: 600; color: var(--text); font-size: 17px; }
 .prices__note { margin-top: 16px; }
+
+/* заголовок «Почему к нам возвращаются» помещается в свою колонку */
+.why__sticky .h2 { font-size: clamp(28px, 3.3vw, 52px); }
+/* страховка: длинные слова в заголовках не вылезают за колонку */
+.h2, .hero__title, .finale__title { overflow-wrap: break-word; }
