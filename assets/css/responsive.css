@@ -31,8 +31,10 @@
 
   .about__grid { grid-template-columns: minmax(0, 1fr); gap: 0; }
   .about__media { grid-template-columns: minmax(0, 1fr); }
-  .about__side { grid-template-columns: .9fr 1.1fr; align-items: center; gap: 20px; padding: 0; }
-  .frame--small { width: 100%; }
+  /* на телефоне: текст на всю ширину, под ним широкое фото */
+  .about__side { grid-template-columns: minmax(0, 1fr); gap: 20px; padding: 0; }
+  .about__text { order: -1; max-width: none; font-size: 16px; }
+  .frame--small { width: 100%; aspect-ratio: 16 / 10; }
   .stats { grid-template-columns: 1fr 1fr; }
   .stat { padding: 28px 16px 28px 0 !important; border-right: 0; border-bottom: 1px solid var(--line); }
   .stat:nth-child(odd) { border-right: 1px solid var(--line); }
