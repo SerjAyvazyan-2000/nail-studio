@@ -85,8 +85,11 @@
   .why__sticky { position: relative; top: 0; }
   .why__dancer { width: 30%; right: -2%; bottom: -12%; }
 
-  .review { width: 84vw; min-height: 280px; padding: 28px 26px; }
-  .review blockquote { font-size: 20px; }
+  .reviews__top { grid-template-columns: 1fr; }
+  .rsum { padding: 28px; }
+  .rcard { width: 82vw; padding: 24px; }
+  .rmarquee__track { animation-duration: 45s; }
+  .rmarquee__row--rev .rmarquee__track { animation-duration: 52s; }
 
   .float--1, .float--4 { width: 92px; }
   .float--2, .float--3 { width: 84px; }

@@ -292,41 +292,18 @@
 
   if (reduce) { words.forEach(w => w.classList.add('is-on')); finaleCircle.style.transform = 'translate(-50%,-50%) scale(1)'; }
 
-  /* ---------- Слайдер отзывов (drag + кнопки) ---------- */
-  const slider = $('[data-slider]');
-  const track = $('[data-slider-track]');
-  const bar = $('[data-slider-bar]');
-  let pos = 0, targetPos = 0, dragging = false, startX = 0, startPos = 0, moved = 0;
-  const maxPos = () => Math.max(0, track.scrollWidth - slider.clientWidth + 40);
-  const cardStep = () => (track.children[0]?.offsetWidth || 400) + 20;
-
-  slider.addEventListener('pointerdown', e => {
-    dragging = true; moved = 0;
-    startX = e.clientX; startPos = targetPos;
-    slider.classList.add('is-dragging');
+  /* ---------- Бегущие ряды отзывов: дублируем карточки для бесконечной ленты ---------- */
+  $$('[data-marquee] .rmarquee__track').forEach(track => {
+    [...track.children].forEach(card => {
+      const c = card.cloneNode(true);
+      c.setAttribute('aria-hidden', 'true');
+      track.appendChild(c);
+    });
   });
-  window.addEventListener('pointermove', e => {
-    if (!dragging) return;
-    const dx = e.clientX - startX;
-    moved = Math.abs(dx);
-    targetPos = clamp(startPos - dx * 1.2, -60, maxPos() + 60);
-  });
-  window.addEventListener('pointerup', () => {
-    if (!dragging) return;
-    dragging = false;
-    slider.classList.remove('is-dragging');
-    targetPos = clamp(Math.round(targetPos / cardStep()) * cardStep(), 0, maxPos());
-  });
-  $('[data-slider-next]').addEventListener('click', () => { targetPos = clamp(targetPos + cardStep(), 0, maxPos()); });
-  $('[data-slider-prev]').addEventListener('click', () => { targetPos = clamp(targetPos - cardStep(), 0, maxPos()); });
-
-  const sliderLoop = () => {
-    pos = lerp(pos, targetPos, dragging ? 0.3 : 0.09);
-    track.style.transform = `translate3d(${-pos}px,0,0)`;
-    const p = maxPos() ? clamp(pos / maxPos(), 0, 1) : 0;
-    bar.style.transform = `translateX(${p * 400}%)`;
-    requestAnimationFrame(sliderLoop);
-  };
+  const barIO = new IntersectionObserver((entries) => {
+    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('is-in'); barIO.unobserve(en.target); } });
+  }, { threshold: 0.6 });
+  $$('[data-bar]').forEach(el => barIO.observe(el));
 
   /* ---------- Курсор ---------- */
   if (finePointer && !reduce) {
@@ -349,8 +326,6 @@
       if (lab) label.textContent = lab.dataset.cursor;
     });
     $('[data-lightbox]').addEventListener('mouseenter', () => cursor.classList.remove('is-label', 'is-link'));
-    slider.addEventListener('mouseenter', () => { cursor.classList.add('is-label'); label.textContent = 'Тянуть'; });
-    slider.addEventListener('mouseleave', () => cursor.classList.remove('is-label'));
 
   }
 
@@ -408,5 +383,4 @@
   window.addEventListener('resize', setupHScroll);
   window.addEventListener('load', setupHScroll);
   requestAnimationFrame(loop);
-  requestAnimationFrame(sliderLoop);
 })();

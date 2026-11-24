@@ -16,14 +16,13 @@
   isolation: isolate;
   transition: color .5s var(--ease-out), border-color .5s var(--ease-out), box-shadow .5s var(--ease-out);
 }
-.btn > * { position: relative; z-index: 1; }
 .btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.6; }
 
 /* Ховер без движения кнопки: заливка расходится от центра + блик проходит по кнопке */
 .btn::before {
   content: "";
   position: absolute; inset: 0;
-  z-index: 0;
+  z-index: -1;
   border-radius: inherit;
   clip-path: circle(0% at 50% 50%);
   transition: clip-path .7s var(--ease-out);
@@ -35,7 +34,7 @@
   top: 0; bottom: 0;
   left: -60%;
   width: 40%;
-  z-index: 1;
+  z-index: -1;
   background: linear-gradient(105deg, transparent, rgba(255, 255, 255, .55), transparent);
   transform: skewX(-20deg);
   opacity: 0;
