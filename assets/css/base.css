@@ -87,6 +87,9 @@ em {
   margin: 0 auto;
   padding: 0 var(--gutter);
 }
+/* дочерние элементы сеток и флексов не распирают колонку на узких экранах */
+[class*="__grid"] > *, [class*="__top"] > *, .prices__content, .price-panels, .price-list, .price-row > * { min-width: 0; }
+
 .section { padding: clamp(64px, 8vw, 120px) 0; position: relative; }
 
 :focus-visible { outline: 2px solid var(--pink); outline-offset: 4px; border-radius: 6px; }

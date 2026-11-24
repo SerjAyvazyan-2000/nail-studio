@@ -326,7 +326,7 @@
           const fTop = M.finale.top - sy;
           floats.forEach(f => {
             const k = parseFloat(f.dataset.float);
-            f.style.translate = `${(cmx * k * 40).toFixed(1)}px ${(fTop * k).toFixed(1)}px`;
+            f.style.translate = M.desk ? `${(cmx * k * 40).toFixed(1)}px ${(fTop * k).toFixed(1)}px` : '0 0';
             f.style.rotate = `${(k * 20 + cmx * 4).toFixed(2)}deg`;
           });
           const p = clamp((vh - fTop) / (vh * 1.1), 0, 1);
