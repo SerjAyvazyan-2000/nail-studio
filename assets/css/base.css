@@ -12,7 +12,7 @@
   --muted: #b9a6b1;
 
   --font-display: "Unbounded", "Manrope", system-ui, sans-serif;
-  --font-script: "Marck Script", "Segoe Script", cursive;
+  --font-script: var(--font-display); /* без курсива: акценты тем же шрифтом */
   --font-body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
 
   --ease-out: cubic-bezier(.16, 1, .3, 1);
@@ -54,14 +54,9 @@ ul, ol { list-style: none; }
   letter-spacing: -.02em;
   text-wrap: balance;
 }
-/* акцентные слова — рукописный шрифт, как в логотипе */
+/* акцентные слова — тот же шрифт, прямой, розовым */
 em {
-  font-family: var(--font-script);
   font-style: normal;
-  font-weight: 400;
-  font-size: 1.12em;
-  letter-spacing: 0;
-  line-height: .9;
   color: var(--pink);
 }
 .eyebrow {

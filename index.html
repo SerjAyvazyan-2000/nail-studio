@@ -100,7 +100,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Marck+Script&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="assets/images/nails-french.jpg">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -185,12 +185,18 @@
             <span class="hero__stars">★★★★★</span> <b>5.0</b> в 2ГИС · 21 оценка
           </a>
 
+          <p class="hero__kicker reveal-up">Студия маникюра <b>«8&nbsp;Марта»</b> · Бийск</p>
+
           <h1 class="hero__title">
             <span class="sr-only">Студия маникюра в Бийске — </span>
             <span class="line"><span class="word">Руки,</span></span>
             <span class="line line--indent"><span class="word"><em>которые</em></span></span>
             <span class="line"><span class="word">танцуют</span></span>
           </h1>
+
+          <ul class="hero__chips reveal-up" aria-label="Услуги">
+            <li>Маникюр</li><li>Педикюр</li><li>Наращивание</li><li>Подолог</li><li>Брови</li>
+          </ul>
 
           <p class="hero__lead reveal-up">
             Студия маникюра в Бийске: маникюр, педикюр, наращивание, подолог и брови в одном месте. Стерильные инструменты, точная форма и покрытие, которое держится неделями.
@@ -216,13 +222,6 @@
           <div class="hero__bubble" data-depth="0.55">
             <img src="assets/images/nails-hot-pink.jpg" alt="">
           </div>
-          <a class="hero__badge" href="https://dikidi.app/2027010?p=1.pi-po" target="_blank" rel="noopener" tabindex="-1" data-depth="0.4">
-            <svg viewBox="0 0 200 200">
-              <defs><path id="circ" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
-              <text><textPath href="#circ">запись онлайн · запись онлайн · </textPath></text>
-            </svg>
-            <span class="hero__badge-arrow">↗</span>
-          </a>
           <img src="assets/images/dancer.png" alt="" class="hero__dancer" data-depth="0.7">
         </div>
       </div>
@@ -349,142 +348,62 @@
             </div>
           </article>
 
-          <article class="svc svc--cta">
-            <p class="svc__cta-kicker">Свободные окна и цены — в онлайн-записи</p>
-            <h3 class="svc__title">Выберите<br><em>время</em></h3>
-            <a href="https://dikidi.app/2027010?p=1.pi-po" target="_blank" rel="noopener" class="btn btn--lg">Записаться</a>
-          </article>
         </div>
       </div>
     </section>
 
     <!-- ================= ЦЕНЫ ================= -->
     <section class="prices section" id="prices">
-      <div class="prices__bgword" aria-hidden="true" data-bgword>прайс</div>
-      <div class="container prices__grid">
-        <div class="prices__visual">
-          <figure class="frame frame--price" data-reveal-img>
-            <img src="assets/images/nails-red.jpg" alt="Красный маникюр" loading="lazy" decoding="async" data-parallax-img data-price-img>
-          </figure>
-          <div class="prices__sticker" aria-hidden="true">
-            <span>маникюр от</span><b>1 000</b><span>рублей</span>
+      <div class="container">
+        <div class="prices__head">
+          <div>
+            <p class="eyebrow">Прайс</p>
+            <h2 class="h2">Все услуги <em>и цены</em></h2>
           </div>
+          <p class="prices__lead">Цены из онлайн-записи студии. Работаем без выходных, 9:00–20:00.</p>
         </div>
 
-        <div class="prices__content">
-          <p class="eyebrow">Прайс</p>
-          <h2 class="h2">Честные <em>цены</em><br>без сюрпризов</h2>
-
-          <div class="price-tabs" role="tablist" aria-label="Категории прайса">
-            <button class="price-tab is-active" type="button" role="tab" id="tab-manicure" aria-controls="panel-manicure" aria-selected="true" data-tab="manicure" data-img="assets/images/nails-red.jpg" data-alt="Красный маникюр">Маникюр</button><button class="price-tab" type="button" role="tab" id="tab-pedicure" aria-controls="panel-pedicure" aria-selected="false" data-tab="pedicure" data-img="assets/images/pedicure-red.jpg" data-alt="Педикюр с красным покрытием">Педикюр</button><button class="price-tab" type="button" role="tab" id="tab-combo" aria-controls="panel-combo" aria-selected="false" data-tab="combo" data-img="assets/images/team-studio.jpg" data-alt="Маникюр и педикюр в 4 руки">В 4 руки</button><button class="price-tab" type="button" role="tab" id="tab-podology" aria-controls="panel-podology" aria-selected="false" data-tab="podology" data-img="assets/images/team-vertical.jpg" data-alt="Подолог за работой">Подолог</button><button class="price-tab" type="button" role="tab" id="tab-brows" aria-controls="panel-brows" aria-selected="false" data-tab="brows" data-img="assets/images/master-portrait.jpg" data-alt="Мастер студии">Брови</button>
-          </div>
-
-          <div class="price-panels">
-            <ul class="price-list is-active" role="tabpanel" id="panel-manicure" aria-labelledby="tab-manicure" data-panel="manicure">
-              <li class="price-row">
-                <div class="price-row__name"><h3>Комплекс без покрытия</h3><p>1 ч 15 мин</p></div>
-                <span class="price-row__dots" aria-hidden="true"></span>
-                <div class="price-row__price"><small>от</small> <span data-price="1000">1 000</span>&nbsp;₽</div>
-              </li>
-              <li class="price-row">
-                <div class="price-row__name"><h3>Комплекс Однотон</h3><p>2 ч</p></div>
-                <span class="price-row__dots" aria-hidden="true"></span>
-                <div class="price-row__price"><small>от</small> <span data-price="1200">1 200</span>&nbsp;₽</div>
-              </li>
-              <li class="price-row">
-                <div class="price-row__name"><h3>Комплекс Дизайн</h3><p>2 ч 30 мин</p></div>
-                <span class="price-row__dots" aria-hidden="true"></span>
-                <div class="price-row__price"><small>от</small> <span data-price="1800">1 800</span>&nbsp;₽</div>
-              </li>
-              <li class="price-row">
-                <div class="price-row__name"><h3>Комплекс Наращивание ногтей</h3><p>2 ч 40 мин</p></div>
-                <span class="price-row__dots" aria-hidden="true"></span>
-                <div class="price-row__price"><small>от</small> <span data-price="2500">2 500</span>&nbsp;₽</div>
-              </li>
-            </ul>
-            <ul class="price-list" role="tabpanel" id="panel-pedicure" aria-labelledby="tab-pedicure" data-panel="pedicure" hidden>
-              <li class="price-row">
-                <div class="price-row__name"><h3>Комплекс педикюр пальчики с покрытием гель-лак</h3><p>1 ч 30 мин</p></div>
-                <span class="price-row__dots" aria-hidden="true"></span>
-                <div class="price-row__price"><small>от</small> <span data-price="1200">1 200</span>&nbsp;₽</div>
-              </li>
-              <li class="price-row">
-                <div class="price-row__name"><h3>Комплекс педикюр без покрытия</h3><p>1 ч 30 мин</p></div>
-                <span class="price-row__dots" aria-hidden="true"></span>
-                <div class="price-row__price"><small>от</small> <span data-price="1500">1 500</span>&nbsp;₽</div>
-              </li>
-              <li class="price-row">
-                <div class="price-row__name"><h3>Комплекс полный педикюр с покрытием</h3><p>2 ч</p></div>
-                <span class="price-row__dots" aria-hidden="true"></span>
-                <div class="price-row__price"><small>от</small> <span data-price="2000">2 000</span>&nbsp;₽</div>
-              </li>
-            </ul>
-            <ul class="price-list" role="tabpanel" id="panel-combo" aria-labelledby="tab-combo" data-panel="combo" hidden>
-              <li class="price-row price-row--hit">
-                <div class="price-row__name"><h3>Комплекс в 4 руки: маникюр + педикюр</h3><p>2 ч · всё включено</p></div>
-                <span class="price-row__dots" aria-hidden="true"></span>
-                <div class="price-row__price"><span data-price="4500">4 500</span>&nbsp;₽</div>
-              </li>
-            </ul>
-            <ul class="price-list" role="tabpanel" id="panel-podology" aria-labelledby="tab-podology" data-panel="podology" hidden>
-              <li class="price-row">
-                <div class="price-row__name"><h3>Прижигание бородавок (шипиц)</h3><p>1 ч</p></div>
-                <span class="price-row__dots" aria-hidden="true"></span>
-                <div class="price-row__price"><small>от</small> <span data-price="500">500</span>&nbsp;₽</div>
-              </li>
-              <li class="price-row">
-                <div class="price-row__name"><h3>Консультация подолога</h3><p>1 ч</p></div>
-                <span class="price-row__dots" aria-hidden="true"></span>
-                <div class="price-row__price"><span data-price="600">600</span>&nbsp;₽</div>
-              </li>
-              <li class="price-row">
-                <div class="price-row__name"><h3>Обработка ногтей от грибка</h3><p>1 ч 15 мин</p></div>
-                <span class="price-row__dots" aria-hidden="true"></span>
-                <div class="price-row__price"><small>от</small> <span data-price="1000">1 000</span>&nbsp;₽</div>
-              </li>
-              <li class="price-row">
-                <div class="price-row__name"><h3>Удаление вросшего ногтя</h3><p>1 ч</p></div>
-                <span class="price-row__dots" aria-hidden="true"></span>
-                <div class="price-row__price"><small>от</small> <span data-price="1200">1 200</span>&nbsp;₽</div>
-              </li>
-              <li class="price-row">
-                <div class="price-row__name"><h3>Обработка сложной стопы</h3><p>2 ч</p></div>
-                <span class="price-row__dots" aria-hidden="true"></span>
-                <div class="price-row__price"><span data-price="2500">2 500</span>&nbsp;₽</div>
-              </li>
-              <li class="price-row">
-                <div class="price-row__name"><h3>Установка нитей</h3><p>1 ч</p></div>
-                <span class="price-row__dots" aria-hidden="true"></span>
-                <div class="price-row__price"><span data-price="3000">3 000</span>&nbsp;₽</div>
-              </li>
-            </ul>
-            <ul class="price-list" role="tabpanel" id="panel-brows" aria-labelledby="tab-brows" data-panel="brows" hidden>
-              <li class="price-row">
-                <div class="price-row__name"><h3>Оформление бровей</h3><p>30 мин</p></div>
-                <span class="price-row__dots" aria-hidden="true"></span>
-                <div class="price-row__price"><small>от</small> <span data-price="800">800</span>&nbsp;₽</div>
-              </li>
-              <li class="price-row">
-                <div class="price-row__name"><h3>Ламинирование бровей</h3><p>1 ч 10 мин</p></div>
-                <span class="price-row__dots" aria-hidden="true"></span>
-                <div class="price-row__price"><span data-price="1400">1 400</span>&nbsp;₽</div>
-              </li>
-            </ul>
-          </div>
-
-          <p class="prices__note">Цены указаны по данным онлайн-записи студии, носят информационный характер и не являются публичной офертой (ст. 437 ГК РФ). Итоговую стоимость уточняйте у мастера.</p>
-
-          <div class="prices__more reveal-up">
-            <div>
-              <b>Работаем без выходных</b>
-              <p>Свободные окна и запись к нужному мастеру — онлайн за минуту.</p>
-            </div>
-            <a href="https://dikidi.app/2027010?p=1.pi-po" target="_blank" rel="noopener" class="btn btn--pink">
-              <span>Выбрать время</span>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </a>
-          </div>
+        <div class="ptable-wrap reveal-up">
+          <table class="ptable">
+            <caption class="sr-only">Прайс студии маникюра «8 Марта»</caption>
+            <thead>
+              <tr><th scope="col">Услуга</th><th scope="col">Время</th><th scope="col">Цена</th></tr>
+            </thead>
+            <tbody>
+              <tr class="ptable__cat"><th colspan="3" scope="colgroup">Маникюр</th></tr>
+              <tr><th scope="row">Комплекс без покрытия</th><td class="ptable__time">1 ч 15 мин</td><td class="ptable__price">от 1 000&nbsp;₽</td></tr>
+              <tr><th scope="row">Комплекс Однотон</th><td class="ptable__time">2 ч</td><td class="ptable__price">от 1 200&nbsp;₽</td></tr>
+              <tr><th scope="row">Комплекс Дизайн</th><td class="ptable__time">2 ч 30 мин</td><td class="ptable__price">от 1 800&nbsp;₽</td></tr>
+              <tr><th scope="row">Комплекс Наращивание ногтей</th><td class="ptable__time">2 ч 40 мин</td><td class="ptable__price">от 2 500&nbsp;₽</td></tr>
+            </tbody>
+            <tbody>
+              <tr class="ptable__cat"><th colspan="3" scope="colgroup">Педикюр</th></tr>
+              <tr><th scope="row">Комплекс педикюр пальчики с покрытием гель-лак</th><td class="ptable__time">1 ч 30 мин</td><td class="ptable__price">от 1 200&nbsp;₽</td></tr>
+              <tr><th scope="row">Комплекс педикюр без покрытия</th><td class="ptable__time">1 ч 30 мин</td><td class="ptable__price">от 1 500&nbsp;₽</td></tr>
+              <tr><th scope="row">Комплекс полный педикюр с покрытием</th><td class="ptable__time">2 ч</td><td class="ptable__price">от 2 000&nbsp;₽</td></tr>
+            </tbody>
+            <tbody>
+              <tr class="ptable__cat"><th colspan="3" scope="colgroup">Маникюр + педикюр</th></tr>
+              <tr><th scope="row">Комплекс в 4 руки</th><td class="ptable__time">2 ч</td><td class="ptable__price">4 500&nbsp;₽</td></tr>
+            </tbody>
+            <tbody>
+              <tr class="ptable__cat"><th colspan="3" scope="colgroup">Подолог</th></tr>
+              <tr><th scope="row">Прижигание бородавок (шипиц)</th><td class="ptable__time">1 ч</td><td class="ptable__price">от 500&nbsp;₽</td></tr>
+              <tr><th scope="row">Консультация подолога</th><td class="ptable__time">1 ч</td><td class="ptable__price">600&nbsp;₽</td></tr>
+              <tr><th scope="row">Обработка ногтей от грибка</th><td class="ptable__time">1 ч 15 мин</td><td class="ptable__price">от 1 000&nbsp;₽</td></tr>
+              <tr><th scope="row">Удаление вросшего ногтя</th><td class="ptable__time">1 ч</td><td class="ptable__price">от 1 200&nbsp;₽</td></tr>
+              <tr><th scope="row">Обработка сложной стопы</th><td class="ptable__time">2 ч</td><td class="ptable__price">2 500&nbsp;₽</td></tr>
+              <tr><th scope="row">Установка нитей</th><td class="ptable__time">1 ч</td><td class="ptable__price">3 000&nbsp;₽</td></tr>
+            </tbody>
+            <tbody>
+              <tr class="ptable__cat"><th colspan="3" scope="colgroup">Брови</th></tr>
+              <tr><th scope="row">Оформление бровей</th><td class="ptable__time">30 мин</td><td class="ptable__price">от 800&nbsp;₽</td></tr>
+              <tr><th scope="row">Ламинирование бровей</th><td class="ptable__time">1 ч 10 мин</td><td class="ptable__price">1 400&nbsp;₽</td></tr>
+            </tbody>
+          </table>
         </div>
+
+        <p class="prices__note">Цены носят информационный характер и не являются публичной офертой (ст. 437 ГК РФ). Итоговую стоимость уточняйте у мастера.</p>
       </div>
     </section>
 
@@ -531,7 +450,6 @@
         <figcaption data-lb-cap></figcaption>
       </figure>
       <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Следующее фото" data-lb-next>→</button>
-      <a href="https://dikidi.app/2027010?p=1.pi-po" target="_blank" rel="noopener" class="btn btn--pink lightbox__cta">Хочу так же — записаться</a>
     </div>
 
     <!-- ================= МАСТЕРА ================= -->
@@ -548,29 +466,11 @@
         <div class="masters__content">
           <p class="eyebrow">Акт IV — Мастера</p>
           <h2 class="h2">Те, кого <em>просят</em><br>по имени</h2>
-          <p class="masters__lead">Команда мастеров маникюра и педикюра. Выберите своего мастера и удобное время в онлайн-записи.</p>
+          <p class="masters__lead">Команда мастеров маникюра и педикюра. Мастера маникюра и педикюра, подолог и бровист.</p>
           <ol class="masters__list">
-            <li class="master">
-              <a href="https://dikidi.app/2027010?p=1.pi-po" target="_blank" rel="noopener">
-                <span class="master__name">Виктория Ошлакова</span>
-                <span class="master__role">Мастер маникюра и педикюра</span>
-                <span class="master__arrow">→</span>
-              </a>
-            </li>
-            <li class="master">
-              <a href="https://dikidi.app/2027010?p=1.pi-po" target="_blank" rel="noopener">
-                <span class="master__name">Елена Пурис</span>
-                <span class="master__role">Подолог</span>
-                <span class="master__arrow">→</span>
-              </a>
-            </li>
-            <li class="master">
-              <a href="https://dikidi.app/2027010?p=1.pi-po" target="_blank" rel="noopener">
-                <span class="master__name">Мария Солоднякова</span>
-                <span class="master__role">Маникюр, бровист</span>
-                <span class="master__arrow">→</span>
-              </a>
-            </li>
+            <li class="master"><div class="master__row"><span class="master__name">Виктория Ошлакова</span><span class="master__role">Мастер маникюра и педикюра</span></div></li>
+            <li class="master"><div class="master__row"><span class="master__name">Елена Пурис</span><span class="master__role">Подолог</span></div></li>
+            <li class="master"><div class="master__row"><span class="master__name">Мария Солоднякова</span><span class="master__role">Маникюр, бровист</span></div></li>
           </ol>
         </div>
       </div>

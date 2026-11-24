@@ -11,21 +11,23 @@
   :root { --header-h: 72px; --radius: 22px; }
   body { font-size: 16px; }
 
-  /* HERO: текст → сцена с фото → кнопки */
-  .hero { padding-bottom: 72px; align-items: flex-start; }
+  /* HERO на телефоне: сразу понятно, что за студия — название, услуги, запись; фото ниже */
+  .hero { min-height: 0; padding-top: calc(var(--header-h) + 20px); padding-bottom: 56px; align-items: flex-start; }
   .hero__inner { grid-template-columns: minmax(0, 1fr); gap: 0; }
   .hero__text { display: contents; }
-  .hero__meta { order: 1; justify-self: start; margin-bottom: 22px; }
-  .hero__title { order: 2; font-size: clamp(40px, 12.6vw, 96px); }
-  .hero__stage { order: 3; max-width: 440px; width: 82%; justify-self: center; margin: 36px 0 8px; }
-  .hero__lead { order: 4; font-size: 16px; }
-  .hero__cta { order: 5; width: 100%; }
-  .hero__cta .btn { flex: 1 1 220px; }
-  .hero__facts { order: 6; gap: 10px 24px; margin-top: 32px; }
-  .hero__facts b { font-size: 22px; }
+  .hero__meta { order: 1; justify-self: start; margin-bottom: 16px; }
+  .hero__kicker { order: 2; font-size: 15px; margin-bottom: 8px; }
+  .hero__title { order: 3; font-size: clamp(32px, 9.6vw, 64px); white-space: normal; }
+  .hero__title .line--indent { padding-left: 0; }
+  .hero__chips { order: 4; margin-top: 16px; }
+  .hero__lead { order: 5; font-size: 15px; margin-top: 16px; }
+  .hero__cta { order: 6; width: 100%; margin-top: 20px; }
+  .hero__cta .btn { flex: 1 1 200px; }
+  .hero__facts { order: 7; gap: 10px 24px; margin-top: 24px; }
+  .hero__facts b { font-size: 18px; }
+  .hero__stage { order: 8; max-width: 380px; width: 72%; justify-self: center; margin: 40px 0 0; }
   .hero__scroll { display: none; }
-  .hero__dancer { left: -12%; width: 44%; bottom: 2%; }
-  .hero__stage { margin-bottom: 28px; }
+  .hero__dancer { left: -14%; width: 44%; bottom: 2%; }
 
   .about__grid { grid-template-columns: minmax(0, 1fr); gap: 0; }
   .about__media { grid-template-columns: minmax(0, 1fr); }
@@ -73,7 +75,7 @@
   .works__col--mid { margin-top: 60px; }
   .works__col { transform: none !important; }
   .works__more { margin-top: 36px; }
-  .shot__label { font-size: 18px; left: 14px; bottom: 12px; }
+  .shot__label { font-size: 14px; left: 12px; right: 12px; bottom: 10px; line-height: 1.2; }
 
   .lightbox { padding: 64px 12px 100px; }
   .lightbox__nav { top: auto; bottom: calc(96px + env(safe-area-inset-bottom)); transform: none; width: 48px; height: 48px; }
@@ -82,9 +84,8 @@
 
   .masters__grid { grid-template-columns: minmax(0, 1fr); }
   .masters__media { order: 2; padding-bottom: 22%; }
-  .master a { grid-template-columns: minmax(0, 1fr) 40px; gap: 4px 12px; padding: 22px 0; }
-  .master__role { grid-column: 1; grid-row: 2; text-align: left; font-size: 14px; }
-  .master__arrow { grid-row: 1 / span 2; grid-column: 2; }
+  .master__row { grid-template-columns: minmax(0, 1fr); gap: 4px; padding: 20px 0; }
+  .master__role { text-align: left; font-size: 14px; }
 
   .why__grid { grid-template-columns: minmax(0, 1fr); }
   .why__sticky { position: relative; top: 0; }
@@ -119,6 +120,19 @@
 }
 
 /* ---------- ≤ 480 ---------- */
+@media (max-width: 600px) {
+  .ptable thead { display: none; }
+  .ptable, .ptable tbody { display: block; }
+  .ptable tr { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 14px; padding: 12px 18px; border-top: 1px dashed rgba(255, 214, 234, .08); }
+  .ptable tbody tr:not(.ptable__cat) th, .ptable tbody td { padding: 0; border: 0; }
+  .ptable tbody tr:not(.ptable__cat) th { grid-column: 1; font-size: 15px; }
+  .ptable__price { grid-column: 2; grid-row: 1 / span 2; align-self: center; width: auto; }
+  .ptable__time { grid-column: 1; width: auto; font-size: 13px; }
+  .ptable__cat { padding: 20px 18px 6px !important; border-top: 1px solid var(--line) !important; }
+  .ptable tbody:first-of-type .ptable__cat { border-top: 0 !important; }
+  .ptable__cat th { padding: 0 !important; border: 0 !important; grid-column: 1 / -1; }
+}
+
 @media (max-width: 480px) {
   .rsum { padding: 22px; }
   .rsum__score b { font-size: 56px; }
@@ -130,7 +144,6 @@
   .prices__more { padding: 18px; }
   .brand__text { font-size: 16px; }
   .hero__meta { font-size: 12px; padding: 7px 14px 7px 12px; }
-  .hero__title .line--indent { padding-left: .5em; }
   .hero__stage { width: 88%; }
   .btn--lg { height: 58px; padding: 0 26px; font-size: 15px; }
   .btn--xl { height: 64px; padding: 0 30px; font-size: 16px; }
