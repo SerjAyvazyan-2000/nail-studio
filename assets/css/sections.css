@@ -1028,4 +1028,4 @@
 /* страховка: длинные слова в заголовках не вылезают за колонку */
 .h2, .hero__title, .finale__title { overflow-wrap: break-word; }
 
-.svc__img--brows { object-position: 50% 30%; }
+.svc__img--brows { object-position: 55% 40%; }
