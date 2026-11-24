@@ -44,16 +44,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 ul, ol { list-style: none; }
 ::selection { background: var(--pink); color: var(--ink); }
 
-/* зерно поверх страницы */
-body::after {
-  content: "";
-  position: fixed; inset: 0;
-  pointer-events: none;
-  z-index: 200;
-  opacity: .06;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
 /* ---------- Типографика ---------- */
 .h2 {
   font-family: var(--font-display);
@@ -76,7 +66,7 @@ em {
   letter-spacing: .18em;
   text-transform: uppercase;
   color: var(--pink-soft);
-  margin-bottom: 28px;
+  margin-bottom: 20px;
 }
 .eyebrow::before {
   content: "";
@@ -91,6 +81,6 @@ em {
   margin: 0 auto;
   padding: 0 var(--gutter);
 }
-.section { padding: clamp(96px, 14vw, 200px) 0; position: relative; }
+.section { padding: clamp(64px, 8vw, 120px) 0; position: relative; }
 
 :focus-visible { outline: 2px solid var(--pink); outline-offset: 4px; border-radius: 6px; }

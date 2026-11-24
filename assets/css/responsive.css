@@ -37,7 +37,7 @@
   .stat:nth-child(even) { padding-left: 16px !important; }
 
   /* Услуги: нативный свайп */
-  .services { height: auto !important; padding: 96px 0; }
+  .services { height: auto !important; padding: 64px 0; }
   .services__sticky { position: relative; height: auto; overflow: visible; padding-top: 0; }
   .services__progress { display: none; }
   .services__track {

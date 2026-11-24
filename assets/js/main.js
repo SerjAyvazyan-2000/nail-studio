@@ -99,24 +99,38 @@
   }, { threshold: 0.6 });
   $$('[data-counter]').forEach(el => countIO.observe(el));
 
-  /* ---------- Цены «набегают» при появлении ---------- */
+  /* ---------- Цены «набегают» при появлении строки ---------- */
   const fmt = n => Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0');
+  const priceEls = $$('[data-price]');
+  // фиксируем ширину по итоговому числу, чтобы цифры не прыгали
+  priceEls.forEach(el => {
+    el.textContent = fmt(parseFloat(el.dataset.price));
+    el.style.minWidth = `${el.getBoundingClientRect().width}px`;
+    if (!reduce) el.textContent = '0';
+  });
+  const runPrice = (el, delay) => {
+    const to = parseFloat(el.dataset.price);
+    const dur = 1300;
+    let start = null;
+    const step = (t) => {
+      if (start === null) start = t + delay;
+      const p = clamp((t - start) / dur, 0, 1);
+      el.textContent = fmt(to * (p === 1 ? 1 : 1 - Math.pow(2, -10 * p)));
+      if (p < 1) requestAnimationFrame(step);
+      else el.closest('.price-row').classList.add('is-counted');
+    };
+    requestAnimationFrame(step);
+  };
   const priceIO = new IntersectionObserver((entries) => {
     entries.forEach(en => {
       if (!en.isIntersecting) return;
-      const el = en.target;
-      const to = parseFloat(el.dataset.price);
-      const start = performance.now();
-      const step = (t) => {
-        const p = clamp((t - start) / 1400, 0, 1);
-        el.textContent = fmt(to * (1 - Math.pow(1 - p, 4)));
-        if (p < 1) requestAnimationFrame(step);
-      };
-      if (!reduce) requestAnimationFrame(step);
-      priceIO.unobserve(el);
+      priceIO.unobserve(en.target);
+      const rows = $$('.price-row', en.target);
+      rows.forEach((row, i) => { const el = $('[data-price]', row); if (el && !reduce) runPrice(el, 250 + i * 180); });
     });
-  }, { threshold: 0.8 });
-  $$('[data-price]').forEach(el => priceIO.observe(el));
+  }, { threshold: 0.25 });
+  const priceList = $('.price-list');
+  if (priceList) priceIO.observe(priceList);
 
   /* ---------- Манифест: слова подсвечиваются по скроллу ---------- */
   const manifest = $('[data-split]');
@@ -172,120 +186,128 @@
     });
   }
 
+  /* ---------- Замеры: делаем редко (resize / загрузка), а не каждый кадр ---------- */
+  const docTop = el => el.getBoundingClientRect().top + window.scrollY;
+  let M = null;
+  const measure = () => {
+    M = {
+      vh: window.innerHeight,
+      desk: isDesktop(),
+      tickerHalf: tickerTrack.scrollWidth / 2,
+      manifest: manifest ? { top: docTop(manifest), h: manifest.offsetHeight } : null,
+      hTop: docTop(hSection),
+      works: worksCols.map(col => ({ col, k: parseFloat(col.dataset.speed), top: docTop(col.parentElement), h: col.parentElement.offsetHeight })),
+      why: whyDancer ? docTop(whyDancer.parentElement) + whyDancer.parentElement.offsetHeight : 0,
+      imgs: parallaxImgs.map(img => ({ img, top: docTop(img.parentElement), h: img.parentElement.offsetHeight })),
+      bg: bgWord ? { top: docTop(bgWord.parentElement), h: bgWord.parentElement.offsetHeight } : null,
+      finale: finale ? { top: docTop(finale), h: finale.offsetHeight } : null,
+      sections: sections.map(sec => ({ id: sec.id, top: docTop(sec) })),
+    };
+  };
+  let measureT;
+  const remeasure = () => { clearTimeout(measureT); measureT = setTimeout(() => { setupHScroll(); measure(); force = true; }, 120); };
+
   let tickerX = 0, velocity = 0, prevScroll = window.scrollY;
+  let lastSy = -1, lastMx = 99, wordsOn = -1, activeId = null, scrolledState = null, ctaState = null, force = true;
 
   const loop = () => {
+    if (!M) measure();
     const sy = window.scrollY;
-    const vh = window.innerHeight;
-
-    // скорость скролла для бегущей строки
+    const vh = M.vh;
     velocity = lerp(velocity, sy - prevScroll, 0.1);
     prevScroll = sy;
 
-    // шапка
-    header.classList.toggle('is-scrolled', sy > 40);
-    lastY = sy;
-
-    // мобильная кнопка: после героя и не над финалом
-    if (mobileCta && finale) {
-      const fr = finale.getBoundingClientRect();
-      mobileCta.classList.toggle('is-visible', sy > vh * 0.7 && !(fr.top < vh && fr.bottom > 0));
-    }
-
     if (!reduce) {
-      // HERO: мышь + скролл
+      // бегущая строка — единственное, что меняется каждый кадр (только transform)
+      tickerX -= 0.6 + Math.abs(velocity) * 0.35;
+      if (-tickerX >= M.tickerHalf) tickerX += M.tickerHalf;
+      tickerTrack.style.transform = `translate3d(${tickerX.toFixed(1)}px,0,0) skewX(${clamp(-velocity * 0.4, -12, 12).toFixed(2)}deg)`;
       cmx = lerp(cmx, mx, 0.06);
       cmy = lerp(cmy, my, 0.06);
-      if (sy < vh * 1.2) {
-        const desk = isDesktop();
-        heroDepth.forEach(el => {
-          const d = parseFloat(el.dataset.depth);
-          const scrollY = desk ? sy * d * 0.5 : 0;
-          el.style.transform = `translate3d(${cmx * d * -40}px, ${cmy * d * -30 + scrollY}px, 0) rotate(${cmx * d * 6}deg)`;
-        });
-        if (desk) {
-          heroTitle.style.transform = `translate3d(0, ${sy * 0.18}px, 0)`;
-          heroTitle.style.opacity = String(clamp(1 - sy / (vh * 0.9), 0, 1));
-        } else {
-          heroTitle.style.transform = '';
-          heroTitle.style.opacity = '';
-        }
-      }
-
-      // бегущая строка
-      tickerX -= 0.6 + Math.abs(velocity) * 0.35;
-      const half = tickerTrack.scrollWidth / 2;
-      if (-tickerX >= half) tickerX += half;
-      tickerTrack.style.transform = `translate3d(${tickerX}px,0,0) skewX(${clamp(-velocity * 0.4, -12, 12)}deg)`;
-
-      // манифест
-      if (words.length) {
-        const r = manifest.getBoundingClientRect();
-        const p = clamp((vh * 0.85 - r.top) / (r.height + vh * 0.35), 0, 1);
-        const on = Math.floor(p * words.length);
-        words.forEach((w, i) => w.classList.toggle('is-on', i < on));
-      }
-
-      // горизонтальные услуги
-      if (isDesktop() && hDistance > 0) {
-        const r = hSection.getBoundingClientRect();
-        const p = clamp(-r.top / hDistance, 0, 1);
-        hTrack.style.transform = `translate3d(${-p * hDistance}px,0,0)`;
-        hProgress.style.transform = `scaleX(${p})`;
-      }
-
-      // колонки работ
-      worksCols.forEach(col => {
-        const r = col.parentElement.getBoundingClientRect();
-        const off = (r.top + r.height / 2 - vh / 2);
-        col.style.transform = `translate3d(0, ${off * parseFloat(col.dataset.speed)}px, 0)`;
-      });
-
-      // танцовщица в «Почему мы»
-      if (whyDancer) {
-        const r = whyDancer.getBoundingClientRect();
-        const off = (r.top - vh / 2) / vh;
-        whyDancer.style.transform = `rotate(${off * -24}deg) translateY(${off * 30}px)`;
-      }
-
-      // параллакс фото внутри рамок (свойство translate не мешает transform)
-      parallaxImgs.forEach(img => {
-        const r = img.parentElement.getBoundingClientRect();
-        if (r.bottom < -100 || r.top > vh + 100) return;
-        const p = (r.top + r.height / 2 - vh / 2) / vh;
-        img.style.translate = `0 ${(-8 + p * -10).toFixed(2)}%`;
-      });
-
-      // большое слово «прайс» едет по горизонтали
-      if (bgWord) {
-        const r = bgWord.parentElement.getBoundingClientRect();
-        if (r.top < vh && r.bottom > 0) bgWord.style.transform = `translate3d(${(r.top - vh / 2) * 0.35}px,0,0)`;
-      }
-
-      // фото в финале
-      if (finale) {
-        const fr = finale.getBoundingClientRect();
-        if (fr.top < vh && fr.bottom > 0) {
-          floats.forEach(f => {
-            const k = parseFloat(f.dataset.float);
-            f.style.translate = `${cmx * k * 40}px ${(fr.top) * k}px`;
-            f.style.rotate = `${k * 20 + cmx * 4}deg`;
-          });
-        }
-      }
-
-      // финал: круг раскрывается
-      if (finale) {
-        const r = finale.getBoundingClientRect();
-        const p = clamp((vh - r.top) / (vh * 1.1), 0, 1);
-        finaleCircle.style.transform = `translate(-50%, -50%) scale(${0.08 + p * 0.92})`;
-      }
     }
 
-    // активный пункт меню
-    let current = '';
-    sections.forEach(s => { if (s.getBoundingClientRect().top < vh * 0.4) current = s.id; });
-    navLinks.forEach(l => l.classList.toggle('is-active', l.getAttribute('href') === `#${current}`));
+    const mouseMoving = Math.abs(cmx - lastMx) > 0.0005;
+    const scrolled = Math.abs(sy - lastSy) > 0.5;
+
+    if (scrolled || mouseMoving || force) {
+      lastSy = sy; lastMx = cmx; force = false;
+      const inView = (top, h, pad = 100) => top + h > sy - pad && top < sy + vh + pad;
+
+      const sc = sy > 40;
+      if (sc !== scrolledState) { header.classList.toggle('is-scrolled', sc); scrolledState = sc; }
+
+      if (mobileCta && M.finale) {
+        const overFinale = inView(M.finale.top, M.finale.h, 0);
+        const v = sy > vh * 0.7 && !overFinale;
+        if (v !== ctaState) { mobileCta.classList.toggle('is-visible', v); ctaState = v; }
+      }
+
+      if (!reduce) {
+        if (sy < vh * 1.2) {
+          heroDepth.forEach(el => {
+            const d = parseFloat(el.dataset.depth);
+            const syv = M.desk ? sy * d * 0.5 : 0;
+            el.style.transform = `translate3d(${(cmx * d * -40).toFixed(1)}px, ${(cmy * d * -30 + syv).toFixed(1)}px, 0) rotate(${(cmx * d * 6).toFixed(2)}deg)`;
+          });
+          if (M.desk) {
+            heroTitle.style.transform = `translate3d(0, ${(sy * 0.18).toFixed(1)}px, 0)`;
+            heroTitle.style.opacity = clamp(1 - sy / (vh * 0.9), 0, 1).toFixed(3);
+          }
+        }
+
+        if (M.manifest && inView(M.manifest.top, M.manifest.h, vh)) {
+          const rTop = M.manifest.top - sy;
+          const p = clamp((vh * 0.85 - rTop) / (M.manifest.h + vh * 0.35), 0, 1);
+          const on = Math.floor(p * words.length);
+          if (on !== wordsOn) { words.forEach((w, i) => w.classList.toggle('is-on', i < on)); wordsOn = on; }
+        }
+
+        if (M.desk && hDistance > 0) {
+          const p = clamp((sy - M.hTop) / hDistance, 0, 1);
+          hTrack.style.transform = `translate3d(${(-p * hDistance).toFixed(1)}px,0,0)`;
+          hProgress.style.transform = `scaleX(${p.toFixed(4)})`;
+        }
+
+        M.works.forEach(w => {
+          if (!inView(w.top, w.h)) return;
+          const off = w.top - sy + w.h / 2 - vh / 2;
+          w.col.style.transform = `translate3d(0, ${(off * w.k).toFixed(1)}px, 0)`;
+        });
+
+        if (whyDancer) {
+          const off = (M.why - sy - vh / 2) / vh;
+          if (off > -1.5 && off < 1.5) whyDancer.style.transform = `rotate(${(off * -24).toFixed(2)}deg) translateY(${(off * 30).toFixed(1)}px)`;
+        }
+
+        M.imgs.forEach(o => {
+          if (!inView(o.top, o.h)) return;
+          const p = (o.top - sy + o.h / 2 - vh / 2) / vh;
+          o.img.style.translate = `0 ${(-8 + p * -10).toFixed(2)}%`;
+        });
+
+        if (M.bg && inView(M.bg.top, M.bg.h, 0)) {
+          bgWord.style.transform = `translate3d(${((M.bg.top - sy - vh / 2) * 0.35).toFixed(1)}px,0,0)`;
+        }
+
+        if (M.finale && inView(M.finale.top, M.finale.h)) {
+          const fTop = M.finale.top - sy;
+          floats.forEach(f => {
+            const k = parseFloat(f.dataset.float);
+            f.style.translate = `${(cmx * k * 40).toFixed(1)}px ${(fTop * k).toFixed(1)}px`;
+            f.style.rotate = `${(k * 20 + cmx * 4).toFixed(2)}deg`;
+          });
+          const p = clamp((vh - fTop) / (vh * 1.1), 0, 1);
+          finaleCircle.style.transform = `translate(-50%, -50%) scale(${(0.08 + p * 0.92).toFixed(4)})`;
+        }
+      }
+
+      let current = '';
+      M.sections.forEach(o => { if (o.top - sy < vh * 0.4) current = o.id; });
+      if (current !== activeId) {
+        navLinks.forEach(l => l.classList.toggle('is-active', l.getAttribute('href') === `#${current}`));
+        activeId = current;
+      }
+    }
 
     requestAnimationFrame(loop);
   };
@@ -313,8 +335,7 @@
     window.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
     const cLoop = () => {
       cx = lerp(cx, tx, 0.2); cy = lerp(cy, ty, 0.2);
-      const w = cursor.offsetWidth;
-      cursor.style.transform = `translate3d(${cx - w / 2}px, ${cy - w / 2}px, 0)`;
+      cursor.style.transform = `translate3d(${cx.toFixed(1)}px, ${cy.toFixed(1)}px, 0)`;
       requestAnimationFrame(cLoop);
     };
     cLoop();
@@ -415,7 +436,8 @@
 
   /* ---------- Старт ---------- */
   setupHScroll();
-  window.addEventListener('resize', setupHScroll);
-  window.addEventListener('load', setupHScroll);
+  window.addEventListener('resize', remeasure);
+  window.addEventListener('load', remeasure);
+  if ('ResizeObserver' in window) new ResizeObserver(remeasure).observe(document.querySelector('main'));
   requestAnimationFrame(loop);
 })();

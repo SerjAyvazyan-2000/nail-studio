@@ -256,24 +256,24 @@
 .about__manifest .w.is-accent.is-on { color: var(--pink); font-style: italic; }
 
 .about__media {
-  margin-top: clamp(64px, 9vw, 130px);
+  margin-top: clamp(40px, 5vw, 72px);
   display: grid;
   grid-template-columns: 1.25fr .75fr;
   gap: clamp(20px, 3vw, 48px);
   align-items: end;
 }
-.frame--big { aspect-ratio: 4 / 4.6; }
+.frame--big { aspect-ratio: 4 / 3.6; }
 .about__side { display: grid; gap: 32px; padding-bottom: 6%; }
 .frame--small { aspect-ratio: 3 / 4; width: 82%; }
 .about__text { color: var(--muted); font-size: 17px; max-width: 40ch; }
 
 .stats {
-  margin-top: clamp(72px, 9vw, 130px);
+  margin-top: clamp(40px, 5vw, 72px);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   border-top: 1px solid var(--line);
 }
-.stat { padding: 36px 24px 0; border-right: 1px solid var(--line); }
+.stat { padding: 28px 24px 0; border-right: 1px solid var(--line); }
 .stat:first-child { padding-left: 0; }
 .stat:last-child { border-right: 0; }
 .stat__num {
@@ -377,7 +377,7 @@
    РАБОТЫ + ЛАЙТБОКС
    ========================================================= */
 .works { overflow: hidden; }
-.works__head { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 20px 40px; margin-bottom: clamp(56px, 8vw, 100px); }
+.works__head { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 20px 40px; margin-bottom: clamp(32px, 4vw, 56px); }
 .works__head .eyebrow { grid-column: 1 / -1; margin-bottom: 0; }
 .works__note { max-width: 280px; color: var(--muted); font-size: 15px; }
 
@@ -390,7 +390,7 @@
   margin: 0 auto;
 }
 .works__col { display: grid; gap: clamp(12px, 2vw, 26px); align-content: start; will-change: transform; }
-.works__col--mid { margin-top: 120px; }
+.works__col--mid { margin-top: 80px; }
 .shot {
   position: relative;
   display: block;
@@ -423,7 +423,7 @@
   transition: transform .6s var(--ease-out);
 }
 .shot:hover .shot__label { transform: translateY(-4px); color: var(--pink-soft); }
-.works__more { margin-top: clamp(48px, 6vw, 80px); display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+.works__more { margin-top: clamp(32px, 4vw, 48px); display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
 
 .lightbox {
   position: fixed; inset: 0;
@@ -470,8 +470,8 @@
    МАСТЕРА
    ========================================================= */
 .masters__grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(40px, 7vw, 120px); align-items: center; }
-.masters__media { position: relative; padding-bottom: 18%; }
-.frame--portrait { aspect-ratio: 3 / 4; width: 80%; }
+.masters__media { position: relative; padding-bottom: 14%; }
+.frame--portrait { aspect-ratio: 4 / 4.6; width: 78%; }
 .frame--float {
   position: absolute;
   width: 58%;
@@ -480,7 +480,7 @@
   border: 6px solid var(--ink);
   box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .6);
 }
-.masters__lead { color: var(--muted); max-width: 44ch; margin: 24px 0 40px; }
+.masters__lead { color: var(--muted); max-width: 44ch; margin: 18px 0 28px; }
 .masters__list { border-top: 1px solid var(--line); }
 .master a {
   position: relative;
@@ -534,7 +534,7 @@
   filter: drop-shadow(0 20px 40px rgba(0, 0, 0, .7));
   will-change: transform;
 }
-.why__item { padding: 36px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 56px 1fr; gap: 8px 20px; }
+.why__item { padding: 26px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 56px 1fr; gap: 8px 20px; }
 .why__item span { font-family: var(--font-display); font-style: italic; font-size: 24px; color: var(--pink); grid-row: span 2; line-height: 1.2; }
 .why__item h3 { font-family: var(--font-display); font-weight: 600; font-size: clamp(26px, 2.4vw, 36px); line-height: 1.1; letter-spacing: -.015em; }
 .why__item p { color: var(--muted); max-width: 44ch; }
@@ -543,7 +543,7 @@
    ОТЗЫВЫ
    ========================================================= */
 .reviews { overflow: hidden; }
-.reviews__head { margin-bottom: clamp(40px, 5vw, 64px); }
+.reviews__head { margin-bottom: clamp(28px, 3vw, 44px); }
 .reviews__top {
   display: grid;
   grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
@@ -670,7 +670,8 @@
    ========================================================= */
 .finale {
   position: relative;
-  min-height: 100vh;
+  min-height: 80vh;
+  padding: 80px 0;
   display: grid;
   place-items: center;
   overflow: hidden;
@@ -714,7 +715,7 @@
    КОНТАКТЫ
    ========================================================= */
 .contacts__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(40px, 6vw, 96px); align-items: start; }
-.contacts__list { margin: 48px 0 32px; display: grid; }
+.contacts__list { margin: 32px 0 24px; display: grid; }
 .contacts__list div { display: grid; grid-template-columns: 110px 1fr; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--line); }
 .contacts__list dt { color: var(--muted); font-size: 14px; padding-top: 4px; }
 .contacts__list dd { font-family: var(--font-display); font-size: clamp(20px, 1.8vw, 26px); font-weight: 500; word-break: break-word; }
@@ -741,7 +742,7 @@
 /* =========================================================
    ПОДВАЛ
    ========================================================= */
-.footer { padding-top: 40px; border-top: 1px solid var(--line); overflow: hidden; }
+.footer { padding-top: 28px; border-top: 1px solid var(--line); overflow: hidden; }
 .footer__big {
   font-family: var(--font-display);
   font-size: clamp(48px, 11.5vw, 210px);
@@ -798,7 +799,7 @@
   align-items: start;
 }
 .prices__visual { position: sticky; top: 120px; }
-.frame--price { aspect-ratio: 4 / 5; border-radius: 999px 999px var(--radius) var(--radius); }
+.frame--price { aspect-ratio: 4 / 4.4; border-radius: 999px 999px var(--radius) var(--radius); }
 .frame--price::before, .frame--price::after { border-radius: inherit; }
 .prices__sticker {
   position: absolute;
@@ -822,7 +823,7 @@
 .prices__sticker b { font-family: var(--font-display); font-size: clamp(32px, 3vw, 44px); font-weight: 700; letter-spacing: -.02em; }
 @keyframes stickerFloat { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
 
-.price-tabs { display: flex; gap: 8px; margin: 36px 0 12px; flex-wrap: wrap; }
+.price-tabs { display: flex; gap: 8px; margin: 24px 0 8px; flex-wrap: wrap; }
 .price-tab {
   padding: 10px 22px;
   border-radius: 100px;
@@ -839,7 +840,7 @@
   grid-template-columns: auto minmax(40px, 1fr) auto;
   align-items: end;
   gap: 18px;
-  padding: 30px 20px;
+  padding: 24px 20px;
   margin: 0 -20px;
   border-bottom: 1px solid var(--line);
   border-radius: 18px;
@@ -881,6 +882,24 @@
   font-variant-numeric: tabular-nums lining-nums;
   transition: color .4s;
 }
+.price-row__price [data-price] { display: inline-block; text-align: right; }
+/* после подсчёта цена вспыхивает розовым свечением */
+.price-row.is-counted .price-row__price { animation: priceGlow 1.2s var(--ease-out); }
+.price-row.is-counted::after {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(100deg, transparent 30%, rgba(243, 111, 196, .22) 50%, transparent 70%) no-repeat;
+  background-size: 250% 100%;
+  animation: rowShine 1.2s var(--ease-out) forwards;
+}
+@keyframes priceGlow {
+  0% { text-shadow: 0 0 0 rgba(243, 111, 196, 0); }
+  35% { text-shadow: 0 0 28px rgba(243, 111, 196, .9); color: var(--pink-soft); }
+  100% { text-shadow: 0 0 0 rgba(243, 111, 196, 0); }
+}
+@keyframes rowShine { from { background-position: 120% 0; } to { background-position: -120% 0; opacity: 0; } }
 .price-row:hover .price-row__price { color: var(--pink-soft); }
 .price-row__badge {
   display: inline-block;
@@ -900,7 +919,7 @@
 .price-row--hit { background: rgba(243, 111, 196, .07); border-color: rgba(243, 111, 196, .3); }
 
 .prices__more {
-  margin-top: 40px;
+  margin-top: 28px;
   padding: 28px 30px;
   border-radius: var(--radius);
   border: 1px dashed rgba(243, 111, 196, .45);

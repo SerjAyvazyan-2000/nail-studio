@@ -124,6 +124,7 @@
   pointer-events: none;
   z-index: 250;
   transform: translate3d(-100px, -100px, 0);
+  translate: -50% -50%;
   mix-blend-mode: difference;
   display: grid; place-items: center;
   transition: width .45s var(--ease-out), height .45s var(--ease-out), background .3s;
