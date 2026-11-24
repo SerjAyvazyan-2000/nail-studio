@@ -270,8 +270,9 @@
 
         M.works.forEach(w => {
           if (!inView(w.top, w.h)) return;
-          const off = w.top - sy + w.h / 2 - vh / 2;
-          w.col.style.transform = `translate3d(0, ${(off * w.k).toFixed(1)}px, 0)`;
+          // колонки только «отстают» вниз (0…90px) — не наезжают на заголовок и кнопки
+          const passed = clamp((sy + vh - w.top) / (w.h + vh), 0, 1);
+          w.col.style.transform = `translate3d(0, ${(passed * w.k * 900).toFixed(1)}px, 0)`;
         });
 
         if (whyDancer) {

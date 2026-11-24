@@ -377,7 +377,7 @@
    РАБОТЫ + ЛАЙТБОКС
    ========================================================= */
 .works { overflow: hidden; }
-.works__head { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 20px 40px; margin-bottom: clamp(32px, 4vw, 56px); }
+.works__head { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 20px 40px; margin-bottom: clamp(40px, 5vw, 72px); }
 .works__head .eyebrow { grid-column: 1 / -1; margin-bottom: 0; }
 .works__note { max-width: 280px; color: var(--muted); font-size: 15px; }
 
@@ -423,7 +423,7 @@
   transition: transform .6s var(--ease-out);
 }
 .shot:hover .shot__label { transform: translateY(-4px); color: var(--pink-soft); }
-.works__more { margin-top: clamp(32px, 4vw, 48px); display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+.works__more { margin-top: clamp(110px, 10vw, 140px); display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
 
 .lightbox {
   position: fixed; inset: 0;

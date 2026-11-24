@@ -68,6 +68,7 @@
   .works__col:nth-child(3) { grid-column: 1 / -1; grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .works__col:nth-child(3) .shot { aspect-ratio: 3 / 4; }
   .works__col--mid { margin-top: 60px; }
+  .works__more { margin-top: 80px; }
   .shot__label { font-size: 18px; left: 14px; bottom: 12px; }
 
   .lightbox { padding: 64px 12px 100px; }
