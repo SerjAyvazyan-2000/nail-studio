@@ -1,0 +1,10 @@
+/* =========================================================
+   Студия маникюра · Бийск
+   Главный файл стилей — подключает все модули из assets/css
+   ========================================================= */
+@import url("assets/css/base.css");
+@import url("assets/css/components.css");
+@import url("assets/css/header.css");
+@import url("assets/css/sections.css");
+@import url("assets/css/motion.css");
+@import url("assets/css/responsive.css");
