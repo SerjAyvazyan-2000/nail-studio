@@ -167,7 +167,7 @@
   const manifest = $('[data-split]');
   let words = [];
   if (manifest) {
-    const accents = ['ухоженные', 'руки', 'пластика', 'уверенности.', 'красивыми.'];
+    const accents = ['ухоженные', 'руки', 'уверенность'];
     const raw = manifest.innerHTML.replace(/&nbsp;/g, ' ').trim().split(/[ \n\t\r]+/);
     manifest.innerHTML = raw.map(w => {
       const clean = w.toLowerCase().replace(/ /g, ' ');
