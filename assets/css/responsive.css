@@ -55,7 +55,9 @@
     scrollbar-width: none;
   }
   .services__track::-webkit-scrollbar { display: none; }
-  .svc, .svc--feature { width: 78vw; max-width: 360px; height: 500px; scroll-snap-align: start; }
+  .svc, .svc--feature { width: 78vw; max-width: 360px; height: auto; scroll-snap-align: start; }
+  .svc__media { height: 220px; }
+  .services__sticky { padding: 0; }
   .svc:hover { transform: none; }
 
   .prices__grid { grid-template-columns: minmax(0, 1fr); }
