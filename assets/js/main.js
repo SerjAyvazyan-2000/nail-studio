@@ -378,6 +378,41 @@
     lbX = null;
   });
 
+  /* ---------- Cookie-согласие и карта Яндекса ---------- */
+  const KEY = 'cookie-consent';
+  const getConsent = () => { try { return localStorage.getItem(KEY); } catch (e) { return null; } };
+  const setConsent = (v) => { try { localStorage.setItem(KEY, v); } catch (e) {} };
+  const cookieBox = $('[data-cookie]');
+  const mapBox = $('.contacts__map');
+  const loadMap = () => {
+    const f = mapBox && $('iframe[data-src]', mapBox);
+    if (!f) return;
+    f.src = f.dataset.src;
+    f.removeAttribute('data-src');
+    mapBox.classList.add('is-loaded');
+  };
+  const showCookie = () => {
+    cookieBox.hidden = false;
+    body.classList.add('cookie-open');
+    requestAnimationFrame(() => cookieBox.classList.add('is-visible'));
+  };
+  const hideCookie = () => {
+    cookieBox.classList.remove('is-visible');
+    body.classList.remove('cookie-open');
+    setTimeout(() => { cookieBox.hidden = true; }, 600);
+  };
+  if (cookieBox) {
+    const c = getConsent();
+    if (c === 'all') loadMap();
+    else if (!c) setTimeout(showCookie, reduce ? 0 : 2200);
+    $('[data-cookie-accept]').addEventListener('click', () => { setConsent('all'); loadMap(); hideCookie(); });
+    $('[data-cookie-decline]').addEventListener('click', () => { setConsent('necessary'); hideCookie(); });
+    const st = $('[data-cookie-settings]');
+    if (st) st.addEventListener('click', showCookie);
+  }
+  const mapBtn = $('[data-map-load]');
+  if (mapBtn) mapBtn.addEventListener('click', () => { setConsent('all'); loadMap(); if (cookieBox && !cookieBox.hidden) hideCookie(); });
+
   /* ---------- Старт ---------- */
   setupHScroll();
   window.addEventListener('resize', setupHScroll);

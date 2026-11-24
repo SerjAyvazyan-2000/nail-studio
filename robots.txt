@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /404.html
+
+Sitemap: https://serjayvazyan-2000.github.io/nail-studio/sitemap.xml
