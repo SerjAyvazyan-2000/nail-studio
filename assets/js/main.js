@@ -269,6 +269,7 @@
         }
 
         M.works.forEach(w => {
+          if (!M.desk) { if (w.col.style.transform) w.col.style.transform = ''; return; } // на мобильных без сдвига
           if (!inView(w.top, w.h)) return;
           // колонки только «отстают» вниз (0…90px) — не наезжают на заголовок и кнопки
           const passed = clamp((sy + vh - w.top) / (w.h + vh), 0, 1);
