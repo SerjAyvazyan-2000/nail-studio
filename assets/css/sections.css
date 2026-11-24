@@ -737,8 +737,7 @@
 }
 .contacts__map iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; filter: grayscale(1) invert(.92) contrast(.9) sepia(.25) hue-rotate(280deg); }
 .contacts__route {
-  position: absolute; left: 50%; bottom: 16px;
-  transform: translateX(-50%);
+  position: absolute; left: 14px; top: 14px; /* сверху — не перекрывает плашку Яндекса внизу карты */
   z-index: 2;
   padding: 14px 26px;
   border-radius: 100px;
