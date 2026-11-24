@@ -444,6 +444,21 @@
   const mapBtn = $('[data-map-load]');
   if (mapBtn) mapBtn.addEventListener('click', () => { setConsent('all'); loadMap(); if (cookieBox && !cookieBox.hidden) hideCookie(); });
 
+  /* ---------- Надпись в подвале всегда во всю ширину, без обрезки ---------- */
+  const bigText = $('.footer__big');
+  const fitBig = () => {
+    if (!bigText) return;
+    const cs = getComputedStyle(bigText);
+    const avail = bigText.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    bigText.style.fontSize = '100px';
+    const range = document.createRange(); range.selectNodeContents(bigText);
+    const textW = range.getBoundingClientRect().width;
+    if (textW > 0) bigText.style.fontSize = `${Math.min(150, Math.floor(100 * avail / textW * 0.98))}px`;
+  };
+  fitBig();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitBig);
+  window.addEventListener('resize', fitBig);
+
   /* ---------- Старт ---------- */
   setupHScroll();
   window.addEventListener('resize', remeasure);

@@ -111,7 +111,7 @@
   .contacts__list div { grid-template-columns: 80px minmax(0, 1fr); gap: 12px; }
   .contacts__map { min-height: 340px; }
 
-  .footer__big { font-size: 8.4vw; padding: 0 12px; }
+  .footer__big { padding: 0 12px; }
   .footer__row { flex-direction: column; align-items: flex-start; padding-bottom: 110px; }
   .mobile-cta { display: flex; }
   .header__actions .btn--sm { display: none; }
